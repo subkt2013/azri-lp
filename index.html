@@ -17,7 +17,7 @@
     </a>
     <nav aria-label="メインナビゲーション">
       <a href="#services">支援内容</a>
-      <a href="#works">制作例</a>
+      <a href="#works">体験デモ</a>
       <a href="#approach">進め方</a>
       <a href="#about" class="nav-about">AZRIについて <span aria-hidden="true">↗</span></a>
     </nav>
@@ -30,7 +30,7 @@
         <h1>焦らず決めて、<br><span class="accent-line">速くつくる。</span></h1>
         <p class="hero-description">業務を見て、曖昧な要望を言葉と画面にする。<br>操作できるデモで認識をそろえてから、開発へ進む。<br>AZRIは、完成後の「思っていたものと違う」を減らします。</p>
         <div class="hero-actions">
-          <a class="button" href="#works">制作例を見る <span aria-hidden="true">↘</span></a>
+          <a class="button" href="#works">デモを試す <span aria-hidden="true">↘</span></a>
           <a class="text-link" href="#approach">開発の進め方</a>
         </div>
         <div class="hero-foot" aria-label="対応領域"><span>REQUIREMENTS</span><span>DEVELOPMENT</span><span>OPERATIONS</span></div>
@@ -59,82 +59,31 @@
       </div>
     </section>
 
-    <section id="works" class="section works-section">
-      <div class="works-intro">
-        <div>
-          <p class="eyebrow">02 / SELECTED WORK</p>
-          <h2>予約受付と顧客カルテを、<br>ひとつにまとめる。</h2>
-        </div>
-        <p>電話・店頭・Webから入る予約を同じカレンダーで管理し、来店後の施術内容まで顧客ごとに残す、理美容室向けの業務システムです。</p>
+    <section id="works" class="section demos-section">
+      <div class="demos-heading">
+        <div><p class="eyebrow">02 / INTERACTIVE DEMOS</p><h2>あなたの業務なら、<br>どう変わる？</h2></div>
+        <p>予約を入れる。申請を承認する。見積を作る。<br>気になるデモを開いて、いつもの仕事を試してみてください。</p>
       </div>
-
-      <article class="barber-case">
-        <div class="case-copy">
-          <p class="case-label">自主開発プロトタイプ</p>
-          <h3>BARBER FLOW</h3>
-          <p class="case-category">理美容室向け<br>予約・顧客・施術履歴管理</p>
-          <p class="case-description">予約経路ごとに情報が分かれ、空き状況の確認と顧客カルテの記録が別々になる課題を想定して設計しました。</p>
-        </div>
-
-        <div class="business-flow" aria-label="BARBER FLOWで管理する業務の流れ">
-          <article>
-            <span class="flow-number">01</span>
-            <div><p class="flow-label">予約を受ける</p><h4>Web・電話・店頭</h4><p>お客様のWeb予約も、スタッフが受けた電話・店頭予約も同じ場所へ登録します。</p></div>
-          </article>
-          <span class="flow-arrow" aria-hidden="true">→</span>
-          <article>
-            <span class="flow-number">02</span>
-            <div><p class="flow-label">空き枠を共有する</p><h4>予約カレンダー</h4><p>日時と担当者を一覧で確認し、同じスタッフへの重複予約を防ぎます。</p></div>
-          </article>
-          <span class="flow-arrow" aria-hidden="true">→</span>
-          <article>
-            <span class="flow-number">03</span>
-            <div><p class="flow-label">次回来店へつなげる</p><h4>顧客カルテ</h4><p>施術メニュー、注意事項、前回の会話メモを顧客ごとに残します。</p></div>
-          </article>
-        </div>
-      </article>
-
-      <div class="before-after">
-        <div class="before">
-          <p class="compare-label">BEFORE</p>
-          <h3>予約とカルテが、別々。</h3>
-          <div class="scattered-tools">
-            <span>Web予約</span><span>電話メモ</span><span>紙の予約表</span><span>顧客カルテ</span>
-          </div>
-          <p>予約の転記漏れや、担当者ごとの情報差が起こりやすい状態。</p>
-        </div>
-        <div class="merge-arrow" aria-hidden="true">→</div>
-        <div class="after">
-          <p class="compare-label">WITH BARBER FLOW</p>
-          <h3>店舗の一日を、ひとつの画面で。</h3>
-          <div class="barber-ui" aria-label="BARBER FLOW 店舗管理画面イメージ">
-            <div class="barber-top"><div><small>BARBER FLOW</small><strong>本日の予約</strong></div><span>9月6日</span></div>
-            <div class="barber-summary"><div><small>予約</small><b>8件</b></div><div><small>来店済み</small><b>3件</b></div><div><small>空き枠</small><b>5枠</b></div></div>
-            <div class="schedule-head"><span>時間</span><span>佐藤</span><span>高橋</span></div>
-            <div class="schedule-row"><time>10:00</time><div class="booking confirmed"><strong>鈴木 健</strong><small>カット</small></div><div class="booking empty">予約可</div></div>
-            <div class="schedule-row"><time>11:00</time><div class="booking empty">予約可</div><div class="booking arrived"><strong>田中 誠</strong><small>カット＋顔剃り</small></div></div>
-            <div class="schedule-row"><time>12:00</time><div class="booking blocked">休憩</div><div class="booking confirmed"><strong>山本 直子</strong><small>カラー</small></div></div>
-          </div>
-        </div>
+      <div class="demo-catalog">
+        <article class="demo-tile">
+          <div class="demo-cover cover-booking"><span>01 / SALON</span><strong>電話で受けた予約が、<br>その場で予定表に。</strong><div class="cover-flow">予約受付 <b>→</b> カレンダー <b>→</b> 来店管理</div></div>
+          <div class="demo-copy"><p class="eyebrow">理美容室・店舗運営</p><h3>予約・顧客管理</h3><p>BARBER FLOWの予約受付を体験。日時と担当者を選ぶと予定表に反映され、同じ枠の重複も確認できます。</p><button class="demo-launch" data-demo="booking">予約を登録してみる <span>↗</span></button></div>
+        </article>
+        <article class="demo-tile">
+          <div class="demo-cover cover-approval"><span>02 / APPROVAL</span><strong>メールで埋もれる申請を、<br>承認待ちの一覧へ。</strong><div class="cover-flow">申請 <b>→</b> 内容確認 <b>→</b> 承認・差戻し</div></div>
+          <div class="demo-copy"><p class="eyebrow">経理・総務</p><h3>経費申請・承認</h3><p>申請の金額と内容を確認し、承認または理由付きで差戻し。誰が何を判断したか、履歴まで確認できます。</p><button class="demo-launch" data-demo="approval">申請を承認してみる <span>↗</span></button></div>
+        </article>
+        <article class="demo-tile">
+          <div class="demo-cover cover-estimate"><span>03 / SALES</span><strong>数量を変えるだけで、<br>見積金額がそろう。</strong><div class="cover-flow">明細入力 <b>→</b> 自動集計 <b>→</b> 見積プレビュー</div></div>
+          <div class="demo-copy"><p class="eyebrow">営業・受発注</p><h3>見積作成</h3><p>明細の数量と単価から税額・合計を自動計算。そのまま提出前の見積プレビューへ進めます。</p><button class="demo-launch" data-demo="estimate">見積を作ってみる <span>↗</span></button></div>
+        </article>
       </div>
-
-      <div class="record-example">
-        <div>
-          <p class="eyebrow">AFTER THE VISIT</p>
-          <h3>施術後は、そのまま顧客の履歴へ。</h3>
-          <p>次回の担当者が、前回の内容や注意事項を探さず確認できます。</p>
-        </div>
-        <div class="record-card">
-          <div class="record-customer"><span>顧客カルテ</span><strong>鈴木 健 様</strong><small>来店 8回 / 前回 2026.08.02</small></div>
-          <dl>
-            <div><dt>本日の施術</dt><dd>カット / 45分</dd></div>
-            <div><dt>仕上がり</dt><dd>前回よりサイドを3mm短く</dd></div>
-            <div><dt>次回メモ</dt><dd>えり足の伸び方を確認する</dd></div>
-          </dl>
-        </div>
-      </div>
-
-      <p class="work-disclaimer">掲載内容は自主開発した画面例です。受託実績や導入効果を示すものではなく、実際の導入時は店舗ごとの業務を確認して設計します。</p>
+      <p class="demo-disclosure">自主開発の体験デモ・架空データです。操作内容はこの画面内だけに反映され、閉じるとリセットされます。</p>
+      <div class="demo-tail"><h3>「このデモを、うちの業務なら」から。</h3><p>実際の帳票や仕事の流れをもとに、入力項目・権限・例外を合わせたデモで認識をそろえます。</p><a class="text-link" href="#approach">相談から開発までの進め方 →</a></div>
+      <dialog id="demo-dialog" aria-labelledby="demo-title">
+        <div class="demo-dialog-head"><div><p class="eyebrow">AZRI / TRY IT</p><h3 id="demo-title"></h3></div><button id="demo-close" aria-label="デモを閉じる">×</button></div>
+        <div id="demo-body"></div>
+      </dialog>
     </section>
 
     <section id="approach" class="section approach">
