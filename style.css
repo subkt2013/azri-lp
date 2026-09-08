@@ -199,3 +199,17 @@ footer small, footer > a:last-child { color: var(--muted); font-size: 13px; }
 @media(max-width:1100px){.demo-tile{grid-template-columns:1.1fr 1fr}.demo-copy{padding:30px 25px}.demo-copy h3{font-size:27px}.demo-cover{padding:20px}.mini-top>span{display:none}.preview-caption span:last-child{display:none}.mini-document{padding:17px}.demos-heading{gap:30px}}
 @media(max-width:760px){.demo-tile{grid-template-columns:1fr;gap:0}.demos-heading{grid-template-columns:1fr;gap:20px;margin-bottom:30px}.demos-heading h2{font-size:38px}.demos-heading p{font-size:15px}.demo-cover{padding:23px 20px 18px;gap:16px}.mini-window{max-width:460px;width:100%;margin:auto}.mini-top>span{display:inline}.mini-calendar{grid-template-rows:28px repeat(3,55px)}.mini-inbox{min-height:265px}.mini-list>div{padding:11px}.mini-detail{padding:15px 12px}.mini-document{padding:16px 26px}.mini-paper{padding:18px}.preview-caption span:last-child{display:inline}.demo-copy{padding:28px 24px 26px}.demo-copy h3{font-size:30px}.demo-copy h3 br{display:none}.demo-copy>.eyebrow{margin-bottom:9px}.demo-copy>p:not(.eyebrow){font-size:15px}.demo-tags li{font-size:11px}.demo-launch{font-size:15px}.demo-disclosure{font-size:11px}.preview-foot{font-size:10px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}}
+
+/* Contact links */
+nav .nav-contact { display: inline-flex; align-items: center; justify-content: center; gap: 12px; min-height: 44px; padding: 9px 16px; color: white; background: var(--blue); white-space: nowrap; }
+nav .nav-contact:hover { background: var(--navy); }
+.contact-section { display: grid; grid-template-columns: 1.4fr 1fr; align-items: center; gap: 50px; background: var(--ice); border-top: 1px solid var(--line); }
+.contact-section h2 { font-size: clamp(29px, 3vw, 43px); margin-bottom: 20px; }
+.contact-section > div > p:not(.eyebrow) { color: var(--muted); }
+.contact-actions { min-width: 0; text-align: center; }
+.contact-button { width: 100%; min-width: 0; gap: 18px; }
+.contact-address { margin: 17px 0 3px; font-size: 16px; overflow-wrap: anywhere; }
+.contact-help { margin: 0; font-size: 13px; }
+@media (max-width: 980px) { .contact-section { grid-template-columns: 1fr; gap: 24px; } .contact-actions { max-width: 440px; width: 100%; text-align: left; } }
+@media (max-width: 680px) { .header { gap: 12px; } .header nav { gap: 12px; } nav .nav-contact { padding: 8px 10px; gap: 6px; font-size: 12px; } .contact-section p br { display: none; } }
+@media (max-width: 480px) { .header nav > a[href="#approach"] { display: none; } }
