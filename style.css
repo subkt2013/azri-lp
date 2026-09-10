@@ -50,7 +50,7 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--blue-bright); o
 }
 .brand { display: inline-flex; align-items: center; flex: 0 0 auto; }
 .brand-crop { width: 94px; height: 76px; overflow: hidden; position: relative; display: block; }
-.brand-crop img { width: 205px; max-width: none; height: auto; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); mix-blend-mode: multiply; }
+.brand-crop img { width: 205px; max-width: none; height: auto; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
 nav { display: flex; align-items: center; gap: clamp(18px, 2.6vw, 40px); font-size: 14px; font-weight: 700; }
 nav > a:not(.nav-about) { position: relative; }
 nav > a:not(.nav-about)::after { content: ""; position: absolute; left: 0; right: 100%; bottom: -7px; height: 1px; background: var(--blue); transition: right 180ms ease; }
