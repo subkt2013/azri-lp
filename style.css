@@ -187,7 +187,7 @@ footer small, footer > a:last-child { color: var(--muted); font-size: 13px; }
   .schedule-head, .schedule-row { grid-template-columns: 50px 1fr 1fr; }
   .booking { margin: 4px; padding: 6px; }
   .values { grid-template-columns: 1fr; gap: 34px; margin-top: 42px; }
-  .about-mark { min-height: 220px; }
+  .about-mark { display: none; }
   .about-copy dl > div { grid-template-columns: 88px 1fr; gap: 16px; }
   footer { grid-template-columns: 1fr auto; gap: 12px; padding: 16px 6%; }
   footer p { grid-column: 1 / -1; order: -1; }
