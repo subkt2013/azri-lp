@@ -1,0 +1,30 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import path from 'node:path';
+import {fileURLToPath} from 'node:url';
+import {JSDOM} from 'jsdom';
+const root=process.env.AZRI_LP_ROOT||fileURLToPath(new URL('../',import.meta.url));
+const html=fs.readFileSync(path.join(root,'index.html'),'utf8');
+const script=fs.readFileSync(path.join(root,'contact.js'),'utf8');
+const flush=()=>new Promise(r=>setImmediate(r));
+function setup(t,responder=async()=>({ok:true}),hosted=false){
+  const dom=new JSDOM(html,{url:'https://azri-corp.com',runScripts:'outside-only'});t.after(()=>dom.window.close());const w=dom.window,calls=[];
+  w.AZRI_CONTACT={hosted};if(responder)w.AZRI_CONTACT_SEND=async payload=>{calls.push(structuredClone(payload));return responder(payload);};
+  w.eval(script);const q=s=>w.document.querySelector(s);
+  const input=(name,value)=>{q('#contact-'+name).value=value;q('#contact-'+name).dispatchEvent(new w.Event('input'));};
+  const fill=()=>{input('name',' テスト担当 ');input('email','sample@example.com');input('message','送信テストです。');q('#contact-consent').checked=true;};
+  const review=()=>q('#contact-form').dispatchEvent(new w.Event('submit',{cancelable:true}));
+  return {w,q,input,fill,review,calls};
+}
+test('未接続のローカル表示は確認まで操作可能で送信できない',t=>{const s=setup(t,null);s.fill();s.review();assert.equal(s.q('#contact-review').hidden,false);assert.equal(s.q('#contact-send').disabled,true);assert.equal(s.q('#contact-setup').hidden,false);});
+test('Google側では親サイトとの接続が確認できるまで入力を無効にする',t=>{const s=setup(t,null,true);assert.equal(s.q('#contact-fields').disabled,true);s.w.AZRI_CONTACT_SEND=async()=>({ok:true});s.w.document.dispatchEvent(new s.w.Event('azri-contact-connected'));assert.equal(s.q('#contact-fields').disabled,false);assert.equal(s.q('#contact-send').disabled,false);});
+test('必須・文字数・メール形式・同意をチェックする',t=>{const s=setup(t);s.review();assert.equal(s.w.document.activeElement.id,'contact-name');s.fill();s.input('email','bad');s.input('message','a'.repeat(5001));s.q('#contact-consent').checked=false;s.review();for(const name of ['email','message','consent'])assert.equal(s.q('#contact-'+name).getAttribute('aria-invalid'),'true');assert.equal(s.calls.length,0);});
+test('確認時に送信せず安全な文字列で表示し、修正が反映される',t=>{const s=setup(t);s.fill();s.input('name','<img src=x onerror=alert(1)>');s.review();assert.equal(s.calls.length,0);assert.equal(s.q('[data-review="name"] img'),null);s.q('#contact-edit').click();s.input('message','修正後の内容');s.review();assert.equal(s.q('[data-review="message"]').textContent,'修正後の内容');});
+test('二重送信を防ぎ、成功時だけ入力と確認内容を消す',async t=>{let finish;const s=setup(t,()=>new Promise(r=>finish=r));s.fill();s.review();s.q('#contact-send').click();s.q('#contact-send').click();assert.equal(s.calls.length,1);assert.equal(s.q('#contact-edit').disabled,true);assert.equal(s.q('#contact-success').hidden,true);finish({ok:true});await flush();assert.equal(s.q('#contact-success').hidden,false);assert.equal(s.q('#contact-email').value,'');assert.equal(s.q('[data-review="email"]').textContent,'');});
+test('拒否・上限・結果不明・不正応答は成功にしない',async t=>{for(const data of [{ok:false,code:'LIMIT'},{ok:false,code:'UNKNOWN'},{}]){const s=setup(t,async()=>data);s.fill();s.review();s.q('#contact-send').click();await flush();assert.equal(s.q('#contact-success').hidden,true);assert.equal(s.q('#contact-email').value,'sample@example.com');assert.ok(s.q('#contact-status').hasAttribute('data-error'));}});
+test('通信失敗でも入力を残し自動再送しない',async t=>{const s=setup(t,async()=>{throw new Error('offline');});s.fill();s.review();s.q('#contact-send').click();await flush();assert.equal(s.calls.length,1);assert.equal(s.q('#contact-email').value,'sample@example.com');assert.match(s.q('#contact-status').textContent,/重複/);});
+test('45秒の待機上限後は結果不明を示す',async t=>{const s=setup(t,()=>new Promise(()=>{}));let timeout;s.w.setTimeout=(fn,ms)=>{assert.equal(ms,45000);timeout=fn;return 1;};s.w.clearTimeout=()=>{};s.fill();s.review();s.q('#contact-send').click();timeout();await flush();assert.equal(s.q('#contact-send').disabled,false);assert.equal(s.q('#contact-success').hidden,true);});
+test('honeypotに入力されていれば送信しない',t=>{const s=setup(t);s.fill();s.q('#contact-website').value='bot';s.review();s.q('#contact-send').click();assert.equal(s.calls.length,0);});
+test('Google用生成HTMLに確認・完了画面と接続処理を含む',()=>{const generated=fs.readFileSync(path.join(root,'apps-script/Form.html'),'utf8');for(const id of ['contact-review','contact-success','contact-status'])assert.ok(generated.includes('id="'+id+'"'));assert.match(generated,/google\.script\.run/);assert.doesNotMatch(generated,/formspree/i);});
+test('iframeの準備・高さメッセージを識別子と送信元で検証する',t=>{const s=setup(t,null);s.w.AZRI_CONTACT={endpoint:'https://script.google.com/macros/s/TEST/exec'};s.w.crypto.randomUUID=()=> '12345678-1234-1234-1234-123456789abc';s.w.eval(fs.readFileSync(path.join(root,'contact-embed.js'),'utf8'));const frame=s.q('.contact-frame');assert.ok(frame);assert.equal(new URL(frame.src).searchParams.get('parentOrigin'),'https://azri-corp.com');const source={postMessage:()=>{}};const dispatch=(origin,data)=>s.w.dispatchEvent(new s.w.MessageEvent('message',{origin,source,data}));const data={type:'azri-contact-height',frameId:'12345678-1234-1234-1234-123456789abc',height:700};dispatch('https://evil.example',data);assert.equal(frame.style.height,'');dispatch('https://script.googleusercontent.com',{...data,type:'azri-contact-ready'});dispatch('https://script.googleusercontent.com',data);assert.equal(frame.style.height,'700px');});

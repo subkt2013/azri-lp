@@ -28,7 +28,7 @@ https://azri-mobile-preview.kaztate-0119.chatgpt.site
 
 ## 技術構成
 
-HTML / CSS / JavaScript ES Modules。実行時の外部ライブラリ、外部フォント、API接続は不要です。
+HTML / CSS / JavaScript ES Modules。デモは外部API不要。問い合わせフォームはGoogle Apps Scriptに接続する構成で、公開URLを接続済みです。
 
 | ファイル | 役割 |
 | --- | --- |
@@ -68,10 +68,10 @@ DOM操作テストはjsdomによるシミュレーションです。実機ブラ
 
 - Sites project_id: `appgprj_6a9ff31613008191baabee446baf9681`
 - 配信用作業領域: `C:/Users/subkt/AppData/Local/Temp/azri-mobile-preview`
-- 検証済みの8つの画面ファイルだけを作業領域の `out/` へコピーし、同じSitesプロジェクトを更新します。
+- 接続確認後、既存8ファイルとcontact.css・contact-config.js・contact.js・contact-embed.jsの計12ファイルだけを作業領域の `out/` へコピーし、同じSitesプロジェクトを更新します。
 - 一時領域が失われても、新しいサイトを作成せず上記project_idを再利用します。
 - `.openai/hosting.json` の `static.directory` は `out`。認証情報は保存しません。
 
-問い合わせ先は contact@azri-corp.com。ヘッダーとページ末尾のリンクからメールアプリを開きます。メールボックスの作成・受信テストはこのサイトの作業には含まれていません。
+問い合わせ先は contact@azri-corp.com。専用フォームの入力・確認・受付完了画面を実装済み。Google Apps Scriptへの実送信と受付完了を確認済みです。受信トレイへの到達は未確認です。接続手順・スパム設定・検証は [CONTACT_SETUP.md](CONTACT_SETUP.md) を参照してください。
 
 一般公開前には、会社情報・プライバシー表記を確定し、実際のPC・スマートフォンで表示を確認します。
