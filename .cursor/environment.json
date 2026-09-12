@@ -1,0 +1,11 @@
+{
+  "name": "AZRI Landing Page & Demos",
+  "install": "export NVM_DIR=\"$HOME/.nvm\" && . \"$NVM_DIR/nvm.sh\" && nvm install 24 > /dev/null && nvm alias default 24 > /dev/null && npm install --prefix tests",
+  "terminals": [
+    {
+      "name": "static-server",
+      "command": "python3 -m http.server 8000 --bind 127.0.0.1"
+    }
+  ],
+  "ports": [8000]
+}
